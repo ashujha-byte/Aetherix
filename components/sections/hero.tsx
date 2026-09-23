@@ -9,121 +9,114 @@ import { MagneticButton } from '@/components/magnetic-button';
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
-    <section ref={ref} className="relative h-screen min-h-[700px] w-full overflow-hidden">
-      {/* Background image with parallax */}
+    <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-[#0A0705] flex items-center">
+      {/* Background Video Layer */}
       <motion.div
         style={{ y, scale }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 pointer-events-none"
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: 'url(https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/30 via-brand-primary/20 to-brand-primary/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/40 via-transparent to-transparent" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg"
+          className="w-full h-full object-cover object-center brightness-[0.55] contrast-[1.15]"
+        >
+          <source src="https://videos.pexels.com/video-files/7667417/7667417-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+          <source src="https://www.pexels.com/download/video/7667417/" type="video/mp4" />
+        </video>
+
+        {/* Studio Scrim Gradients for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-transparent to-black/80" />
       </motion.div>
 
-      {/* Floating decorative elements */}
-      <motion.div
-        className="absolute top-1/4 right-[10%] w-32 h-32 rounded-full bg-brand-accent/20 blur-3xl"
-        animate={{ y: [0, -30, 0], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 left-[8%] w-40 h-40 rounded-full bg-brand-secondary/20 blur-3xl"
-        animate={{ y: [0, 40, 0], opacity: [0.2, 0.5, 0.2] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-      />
+      {/* Ambient Lighting Orbs */}
+      <div className="absolute top-1/4 right-[10%] w-72 h-72 rounded-full bg-[#C89B6D]/15 blur-3xl pointer-events-none z-10" />
+      <div className="absolute bottom-1/4 left-[5%] w-96 h-96 rounded-full bg-[#3B1F17]/35 blur-3xl pointer-events-none z-10" />
 
-      {/* Content */}
-      <motion.div
-        style={{ opacity }}
-        className="relative z-10 h-full flex flex-col justify-center section-padding container-luxury"
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
-          className="max-w-3xl"
-        >
-          <div className="flex items-center gap-2 mb-6">
-            <Sparkles className="w-4 h-4 text-brand-accent" />
-            <span className="eyebrow text-brand-secondary/90">Autumn / Winter 2026</span>
-          </div>
+      {/* Main Content Layer - Forced to Top Level (z-30) */}
+      <div className="relative z-30 w-full section-padding container-luxury py-24 sm:py-32">
+        <div className="max-w-3xl">
+         
 
-          <h1 className="font-playfair text-brand-secondary text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] mb-6">
-            {'Fashion'.split('').map((char, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 + i * 0.05, ease: 'easeOut' }}
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            ))}
-            <br />
-            <motion.span
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.3, ease: 'easeOut' }}
-              className="text-gradient-gold italic"
-            >
+          {/* Main Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="font-playfair text-white text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold leading-[0.95] mb-4 tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]"
+          >
+            Fashion <br />
+            <span className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#F8F5F2] via-[#C89B6D] to-[#E8D9C9]">
               You Choose
-            </motion.span>
-          </h1>
+            </span>
+          </motion.h1>
 
+          {/* Tagline: Wear The Moment */}
+          <motion.div
+            initial={{ opacity: 0, x: -15 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex items-center gap-3 mb-6"
+          >
+            <span className="h-0.5 w-10 bg-[#C89B6D]" />
+            <span className="font-poppins text-sm md:text-base font-bold tracking-[0.35em] text-[#C89B6D] uppercase drop-shadow-md">
+              Wear The Moment
+            </span>
+          </motion.div>
+
+          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.6 }}
-            className="font-inter text-brand-secondary/70 text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
+            transition={{ duration: 0.7, delay: 0.8 }}
+            className="font-inter text-slate-100/90 text-lg md:text-xl max-w-xl mb-10 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
           >
             Discover a curated world of luxury fashion — where craftsmanship meets
             modern design. Every piece is an expression of intention.
           </motion.p>
 
+          {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.9 }}
-            className="flex flex-col sm:flex-row gap-4"
+            transition={{ duration: 0.7, delay: 1 }}
+            className="flex flex-col sm:flex-row gap-4 relative z-40"
           >
-            <MagneticButton className="btn-luxury rounded-full px-8 py-4 text-sm flex items-center gap-2">
+            <MagneticButton className="btn-luxury rounded-full px-8 py-4 text-sm font-semibold flex items-center justify-center gap-2 border border-[#C89B6D]/40 shadow-2xl bg-gradient-to-r from-[#3B1F17] to-[#C89B6D] text-white hover:brightness-110 transition-all">
               <Link href="/shop" className="flex items-center gap-2">
                 Shop Now <ArrowRight className="w-4 h-4" />
               </Link>
             </MagneticButton>
-            <MagneticButton className="btn-outline-luxury !text-brand-secondary !border-brand-secondary rounded-full px-8 py-4 text-sm hover:!bg-brand-secondary hover:!text-brand-primary">
+
+            <MagneticButton className="rounded-full px-8 py-4 text-sm font-medium text-white border-2 border-white/40 backdrop-blur-md bg-black/40 hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center">
               <Link href="/collections">Explore Collection</Link>
             </MagneticButton>
           </motion.div>
-        </motion.div>
+        </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <span className="font-poppins text-[10px] tracking-[0.3em] uppercase text-brand-secondary/50">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-brand-secondary/50 to-transparent relative overflow-hidden">
-            <motion.div
-              className="absolute top-0 w-full h-4 bg-brand-secondary"
-              animate={{ y: [0, 48, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
-        </motion.div>
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 pointer-events-none"
+      >
+        <span className="font-poppins text-[10px] tracking-[0.3em] uppercase text-white/70">Scroll</span>
+        <div className="w-0.5 h-10 bg-white/30 relative overflow-hidden rounded-full">
+          <motion.div
+            className="absolute top-0 w-full h-3 bg-[#C89B6D]"
+            animate={{ y: [0, 28, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
       </motion.div>
     </section>
   );
