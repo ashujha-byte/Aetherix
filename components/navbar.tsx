@@ -81,7 +81,10 @@ export function Navbar() {
             <Menu className="w-6 h-6" />
           </button>
 
-          <Link href="/" className="font-playfair text-xl sm:text-2xl md:text-3xl font-bold tracking-widest text-white drop-shadow">
+          <Link
+            href="/"
+            className="font-playfair text-xl sm:text-2xl md:text-3xl font-bold tracking-widest italic text-transparent bg-clip-text bg-gradient-to-r from-[#F8F5F2] via-[#C89B6D] to-[#E8D9C9] drop-shadow-[0_2px_10px_rgba(200,155,109,0.3)] select-none"
+          >
             AETHERIX
           </Link>
         </div>
@@ -137,9 +140,13 @@ export function Navbar() {
           {/* Menu Header */}
           <div>
             <div className="flex items-center justify-between pb-6 border-b border-white/10">
-              <span className="font-playfair text-xl font-bold tracking-widest text-white">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-playfair text-xl font-bold tracking-widest italic text-transparent bg-clip-text bg-gradient-to-r from-[#F8F5F2] via-[#C89B6D] to-[#E8D9C9]"
+              >
                 AETHERIX
-              </span>
+              </Link>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Close Menu"
